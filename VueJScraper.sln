@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31729.503
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "VueJScraper", "VueJScraper\VueJScraper.njsproj", "{29999E9F-4D1F-493D-B6F3-845051B49EE0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebCoreScraper", "WebCoreScraper\WebCoreScraper.csproj", "{4E90C47E-2D5E-4BDF-87AF-682ED70B706E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{29999E9F-4D1F-493D-B6F3-845051B49EE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29999E9F-4D1F-493D-B6F3-845051B49EE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29999E9F-4D1F-493D-B6F3-845051B49EE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29999E9F-4D1F-493D-B6F3-845051B49EE0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E90C47E-2D5E-4BDF-87AF-682ED70B706E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E90C47E-2D5E-4BDF-87AF-682ED70B706E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E90C47E-2D5E-4BDF-87AF-682ED70B706E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E90C47E-2D5E-4BDF-87AF-682ED70B706E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BAE00087-09D8-4027-91BF-E37A491FDB73}
+	EndGlobalSection
+EndGlobal
