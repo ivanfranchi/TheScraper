@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Scraper.Domain.Services.Scraper;
+using System.Threading.Tasks;
 
 namespace WebCoreScraper.Controllers
 {
@@ -6,9 +8,16 @@ namespace WebCoreScraper.Controllers
     [Route("[controller]")]
     public class ScraperHomeController : ControllerBase
     {
-        public ScraperHomeController()
+        private readonly IScraperService _scraperService;
+
+        public ScraperHomeController(IScraperService scraperService)
         {
+            _scraperService = scraperService;
         }
+
+        //public ScraperHomeController()
+        //{
+        //}
 
         [HttpGet]
         public string Get()
@@ -24,8 +33,10 @@ namespace WebCoreScraper.Controllers
         }
 
         [HttpGet("GetScrapeInfo/{id}")]
-        public string GetScrapeInfo(string id)
+        public async Task<string> GetScrapeInfo(string id)
         {
+            var res = await _scraperService.ScrapeAsync();
+
             return $"You asked id {id}";
         }
     }

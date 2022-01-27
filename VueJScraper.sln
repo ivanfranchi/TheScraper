@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.31729.503
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "VueJScraper", "VueJScraper\VueJScraper.njsproj", "{29999E9F-4D1F-493D-B6F3-845051B49EE0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebCoreScraper", "WebCoreScraper\WebCoreScraper.csproj", "{4E90C47E-2D5E-4BDF-87AF-682ED70B706E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scraper.WebApi", "WebCoreScraper\Scraper.WebApi.csproj", "{4E90C47E-2D5E-4BDF-87AF-682ED70B706E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scraper.Domain", "Scraper.Domain\Scraper.Domain.csproj", "{BCE8EEF9-7E4B-4815-B07B-F41DAE4126D1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{4E90C47E-2D5E-4BDF-87AF-682ED70B706E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4E90C47E-2D5E-4BDF-87AF-682ED70B706E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4E90C47E-2D5E-4BDF-87AF-682ED70B706E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BCE8EEF9-7E4B-4815-B07B-F41DAE4126D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCE8EEF9-7E4B-4815-B07B-F41DAE4126D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BCE8EEF9-7E4B-4815-B07B-F41DAE4126D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BCE8EEF9-7E4B-4815-B07B-F41DAE4126D1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
