@@ -42,5 +42,12 @@
     <Compile Include="Services\Scraper\IScraperService.cs" />
     <Compile Include="Services\Scraper\ScraperService.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Net.Http" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\allPageReturn.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

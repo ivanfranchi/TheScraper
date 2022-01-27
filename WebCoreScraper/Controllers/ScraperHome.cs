@@ -32,12 +32,15 @@ namespace WebCoreScraper.Controllers
             return $"You asked id {id}";
         }
 
-        [HttpGet("GetScrapeInfo/{id}")]
-        public async Task<string> GetScrapeInfo(string id)
+        [HttpGet("GetScrapeInfo/{textToFind}")]
+        public async Task<string> GetScrapeInfo(string textToFind, string keywordsToSearch)
         {
-            var res = await _scraperService.ScrapeAsync();
+            var url = "https://www.google.co.uk/search?num=100&q=land+registry+search";
 
-            return $"You asked id {id}";
+
+            var res = await _scraperService.ScrapeAsync(url, textToFind);
+
+            return res;
         }
     }
 }

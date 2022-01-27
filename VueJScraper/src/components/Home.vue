@@ -31,7 +31,8 @@
             console.log("scraping...");
 
             //const response = await fetch("https://localhost:44361/ScraperHome/GetScrapeInformation");
-            const response = await fetch("https://localhost:44361/ScraperHome/GetScrapeInfo/asd");
+            let textToFind = "www.infotrack.co.uk";
+            const response = await fetch(`https://localhost:44361/ScraperHome/GetScrapeInfo/${textToFind}`);
             if (response.ok) {
                 console.log('ok!!');
                 const body = await response.text();

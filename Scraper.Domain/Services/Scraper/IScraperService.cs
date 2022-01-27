@@ -4,6 +4,6 @@ namespace Scraper.Domain.Services.Scraper
 {
     public interface IScraperService
     {
-        Task<string> ScrapeAsync();
+        Task<string> ScrapeAsync(string urlToScrape, string textToFind);
     }
 }
