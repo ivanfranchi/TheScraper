@@ -1,10 +1,20 @@
 <template>
     <div class="home">
         <h1>{{ msg }}</h1>
-        <p>Welcome to your new single-page application, built with <a href="https://vuejs.org" target="_blank">Vue.js</a> and <a href="http://www.typescriptlang.org/" target="_blank">TypeScript</a>.</p>
 
-        <!-- slam input box for search phrase (land registry search) -->
-        <!-- and the url (www.infotrack.co.uk) -->
+        <h3>Insert the text to lookup:</h3>
+        <input v-model="searchText" placeholder="www.infotrack.co.uk">
+        <p>(to be copy pasted) www.infotrack.co.uk</p>
+
+        <hr />
+
+        <h3>Separate your keywords with a space:</h3>
+        <input v-model="searchKeywords" placeholder="land registry searches">
+        <p>(to be copy pasted) land registry searches</p>
+
+        <hr />
+
+        <button @click="scrapeThis">Go Scrape!</button>
     </div>
 </template>
 
@@ -15,24 +25,22 @@
     export default class Home extends Vue {
         @Prop() private msg!: string;
         reply: string = "";
-
-        //https://localhost:44361/ScraperHome
+        searchText: string = "";
+        searchKeywords: string = "";
 
         created() {
-            console.log("created!!");
-
-            //Vue.$http.headers.common['Access-Control-Allow-Origin'] = true;
-            //Vue.$http.headers.common['Access-Control-Allow-Origin'] = '*';
-
-            this.scrapeTheWeb();
         }
 
-        async scrapeTheWeb(): Promise<void> {
-            console.log("scraping...");
+        public async scrapeThis(): Promise<void> {
+            console.log(this.searchText);
+            console.log(this.searchKeywords);
+            await this.scrapeTheWeb(this.searchText, this.searchKeywords);
+        }
 
-            //const response = await fetch("https://localhost:44361/ScraperHome/GetScrapeInformation");
-            let textToFind = "www.infotrack.co.uk";
-            const response = await fetch(`https://localhost:44361/ScraperHome/GetScrapeInfo/${textToFind}`);
+        private async scrapeTheWeb(textToFind: string, keywordsToSearch: string): Promise<void> {
+            //let textToFind = "www.infotrack.co.uk";
+            //let keywordsToSearch = "land registry searches";
+            const response = await fetch(`https://localhost:44361/ScraperHome/GetScrapeInfo/${textToFind}/${keywordsToSearch}`);
             if (response.ok) {
                 console.log('ok!!');
                 const body = await response.text();

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Scraper.Domain.Services.Scraper;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace WebCoreScraper.Controllers
@@ -15,28 +16,17 @@ namespace WebCoreScraper.Controllers
             _scraperService = scraperService;
         }
 
-        //public ScraperHomeController()
-        //{
-        //}
-
         [HttpGet]
         public string Get()
         {
             return "Welcome Scraper (backend)";
         }
 
-        [HttpGet("GetScrapeInformation")]
-        public string GetScrapeInformation()
-        {
-            string id = "ciao";
-            return $"You asked id {id}";
-        }
-
-        [HttpGet("GetScrapeInfo/{textToFind}")]
+        [HttpGet("GetScrapeInfo/{textToFind}/{keywordsToSearch}")]
         public async Task<string> GetScrapeInfo(string textToFind, string keywordsToSearch)
         {
-            var url = "https://www.google.co.uk/search?num=100&q=land+registry+search";
-
+            keywordsToSearch = string.Join('+', keywordsToSearch.Split(' '));
+            var url = "https://www.google.co.uk/search?num=100&q=" + keywordsToSearch;
 
             var res = await _scraperService.ScrapeAsync(url, textToFind);
 
