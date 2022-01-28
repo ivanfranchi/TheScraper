@@ -2,24 +2,34 @@
     <div class="home">
         <h1>{{ msg }}</h1>
 
-        <h3>Insert the text to lookup:</h3>
-        <input v-model="searchText" placeholder="www.infotrack.co.uk">
-        <p>(to be copy pasted) www.infotrack.co.uk</p>
-
+        <h3>Insert URL:</h3>
+        <input v-model.lazy="searchText" placeholder="www.infotrack.co.uk" @change="inputChanged">
+        <p>(defaulting to) www.infotrack.co.uk</p>
         <hr />
 
-        <h3>Separate your keywords with a space:</h3>
-        <input v-model="searchKeywords" placeholder="land registry searches">
-        <p>(to be copy pasted) land registry searches</p>
-
+        <h3>Insert search phrase:</h3>
+        <input v-model.lazy="searchKeywords" placeholder="land registry searches" @change="inputChanged">
+        <p>(defaulting to) land registry searches</p>
         <hr />
 
-        <h3>How many results per page?</h3>
+        <h3>How many results?</h3>
         <input v-model="resultAmount">
-
         <hr />
 
         <button @click="scrapeThis">Go Scrape!</button>
+        <hr />
+
+        <div v-if="showResults">
+            <div v-if="negativeResult()">
+                <h3>Sorry, "{{searchText}}" does not appear searching for "{{searchKeywords}}"</h3>
+            </div>
+            <div v-else>
+                <h3>Congratulations! {{searchText}} appeared in position:</h3>
+                <div v-for="val in results">
+                    <p>{{val}}</p>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -33,12 +43,13 @@
         reply: string = "";
         searchText: string = "";
         searchKeywords: string = "";
-        resultAmount: string = "5";
-
-        created() {
-        }
+        resultAmount: string = "100";
+        showResults: boolean = false;
+        results: string[] = [];
 
         public async scrapeThis(): Promise<void> {
+            this.showResults = false;
+
             if (this.searchText == "") {
                 this.searchText = "www.infotrack.co.uk";
             }
@@ -48,15 +59,27 @@
             await this.scrapeTheWeb(this.searchText, this.searchKeywords, this.resultAmount);
         }
 
+        public negativeResult(): boolean {
+            if (this.results.length == 1 && this.results[0] == "0") {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        public inputChanged(): void {
+            this.showResults = false;
+        }
+
         private async scrapeTheWeb(textToFind: string, keywordsToSearch: string, howMany: string): Promise<void> {
             try {
                 const response =
                     await fetch(`${this.baseUrl}ScraperHome/GetScrapeInfo/${textToFind}/${keywordsToSearch}/${howMany}`);
 
                 if (response.ok) {
-                    console.log('ok!!');
-                    const body = await response.text();
-                    console.dir(body)
+                    let tmpRes = await response.text();
+                    this.results = this.cleanResult(tmpRes);
+                    this.showResults = true;
                 } else {
                     console.error(await response.text());
                 }
@@ -64,9 +87,14 @@
                 console.error(JSON.stringify(err));
             }
         }
+
+        private cleanResult(tmpRes: string): string[] {
+            tmpRes = tmpRes.replace("[", "");
+            tmpRes = tmpRes.replace("]", "");
+            return tmpRes.split(',');
+        }
     }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 </style>

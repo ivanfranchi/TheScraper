@@ -1,11 +1,12 @@
-﻿using System.Threading;
+﻿using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Scraper.Application.Services.Scraper
 {
     public interface IScraperService
     {
-        Task<string> ScrapeAsync(
+        Task<IEnumerable<int>> ScrapeAsync(
             string urlToScrape,
             string textToFind,
             CancellationToken cancellationToken);

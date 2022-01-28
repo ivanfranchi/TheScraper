@@ -1,14 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using HtmlAgilityPack;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Xml;
 
 namespace Scraper.Application.Services.Scraper
 {
     public class ScraperService : IScraperService
     {
-        public async Task<string> ScrapeAsync(
+        public async Task<IEnumerable<int>> ScrapeAsync(
             string urlToScrape,
             string textToFind,
             CancellationToken cancellationToken)
@@ -27,30 +28,34 @@ namespace Scraper.Application.Services.Scraper
 
             string responseBody = await response.Content.ReadAsStringAsync();
 
-            var xy = ParseXml(responseBody);
-            return responseBody;
+            return ParseXml(responseBody, textToFind);
         }
 
-        private List<int> ParseXml(string xml)
+        private IEnumerable<int> ParseXml(string xml, string textToFind)
         {
+            //Tried with xpath
+            // //div[@id="search"][1]/div[1]/div[1]/div/div[1]/div[1]/div[1]/a/@href
+            // but the tags change and couldn't get to a minimum working solution
+
             var result = new List<int>();
+            var document = new HtmlDocument();
+            document.LoadHtml(xml);
 
-            xml = xml.Replace("doctype", "DOCTYPE");
-            xml = xml.Replace("UTF-8", "UTF-16");
+            HtmlNode root = document.DocumentNode;
+            var rows = document.DocumentNode
+                .SelectNodes("//body//text()")
+                .Select(node => node.InnerText);
 
-            xml = xml.Replace("&apos;", "'")
-                .Replace("&quot;", "\"")
-                //.Replace("&gt;", ">")
-                //.Replace("&lt;", "<")
-                .Replace("&", "&amp;");
-
-            XmlDocument xreader = new XmlDocument();
-            xreader.LoadXml(xml);
-            XmlNode root = xreader.DocumentElement;
-            XmlNodeList xnList =
-                   xreader.SelectNodes("/div[1]/div[1]/a ");
-            XmlNodeList xnList1 =
-                   xreader.SelectNodes("/html/div[1]");
+            var counter = 1;
+            var goodRows = rows.Where(x => x.ToLower().StartsWith("www.")).Distinct().Skip(4);
+            foreach (var line in goodRows)
+            {
+                if (line.ToLower().Contains(textToFind.ToLower()))
+                {
+                    result.Add(counter);
+                }
+                counter++;
+            }
 
             if (result.Count == 0)
             {
