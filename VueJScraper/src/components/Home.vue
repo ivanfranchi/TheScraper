@@ -14,6 +14,11 @@
 
         <hr />
 
+        <h3>How many results per page?</h3>
+        <input v-model="resultAmount">
+
+        <hr />
+
         <button @click="scrapeThis">Go Scrape!</button>
     </div>
 </template>
@@ -24,9 +29,11 @@
     @Component
     export default class Home extends Vue {
         @Prop() private msg!: string;
+        baseUrl: string = "https://localhost:44361/"
         reply: string = "";
         searchText: string = "";
         searchKeywords: string = "";
+        resultAmount: string = "5";
 
         created() {
         }
@@ -38,13 +45,13 @@
             if (this.searchKeywords == "") {
                 this.searchKeywords = "land registry searches";
             }
-            await this.scrapeTheWeb(this.searchText, this.searchKeywords);
+            await this.scrapeTheWeb(this.searchText, this.searchKeywords, this.resultAmount);
         }
 
-        private async scrapeTheWeb(textToFind: string, keywordsToSearch: string): Promise<void> {
+        private async scrapeTheWeb(textToFind: string, keywordsToSearch: string, howMany: string): Promise<void> {
             try {
                 const response =
-                    await fetch(`https://localhost:44361/ScraperHome/GetScrapeInfo/${textToFind}/${keywordsToSearch}`);
+                    await fetch(`${this.baseUrl}ScraperHome/GetScrapeInfo/${textToFind}/${keywordsToSearch}/${howMany}`);
 
                 if (response.ok) {
                     console.log('ok!!');

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Scraper.Domain.Services.Scraper;
+using Scraper.Application.Services.Scraper;
 
 namespace WebCoreScraper
 {

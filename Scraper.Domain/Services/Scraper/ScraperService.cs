@@ -1,8 +1,10 @@
-﻿using System.Net.Http;
+﻿using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Xml;
 
-namespace Scraper.Domain.Services.Scraper
+namespace Scraper.Application.Services.Scraper
 {
     public class ScraperService : IScraperService
     {
@@ -24,7 +26,41 @@ namespace Scraper.Domain.Services.Scraper
             response.EnsureSuccessStatusCode();
 
             string responseBody = await response.Content.ReadAsStringAsync();
+
+            var xy = ParseXml(responseBody);
             return responseBody;
+        }
+
+        private List<int> ParseXml(string xml)
+        {
+            var result = new List<int>();
+
+            xml = xml.Replace("doctype", "DOCTYPE");
+            xml = xml.Replace("UTF-8", "UTF-16");
+
+            xml = xml.Replace("&apos;", "'")
+                .Replace("&quot;", "\"")
+                //.Replace("&gt;", ">")
+                //.Replace("&lt;", "<")
+                .Replace("&", "&amp;");
+
+            XmlDocument xreader = new XmlDocument();
+            xreader.LoadXml(xml);
+            XmlNode root = xreader.DocumentElement;
+            XmlNodeList xnList =
+                   xreader.SelectNodes("/div[1]/div[1]/a ");
+            XmlNodeList xnList1 =
+                   xreader.SelectNodes("/html/div[1]");
+
+            if (result.Count == 0)
+            {
+                result.Add(0);
+                return result;
+            }
+            else
+            {
+                return result;
+            }
         }
     }
 }

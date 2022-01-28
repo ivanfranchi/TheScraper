@@ -1,7 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 
-namespace Scraper.Domain.Services.Scraper
+namespace Scraper.Application.Services.Scraper
 {
     public interface IScraperService
     {

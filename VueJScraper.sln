@@ -7,7 +7,12 @@ Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "VueJScraper", "VueJScraper\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scraper.WebApi", "WebCoreScraper\Scraper.WebApi.csproj", "{4E90C47E-2D5E-4BDF-87AF-682ED70B706E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scraper.Domain", "Scraper.Domain\Scraper.Domain.csproj", "{BCE8EEF9-7E4B-4815-B07B-F41DAE4126D1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scraper.Application", "Scraper.Domain\Scraper.Application.csproj", "{BCE8EEF9-7E4B-4815-B07B-F41DAE4126D1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{68240451-269B-483B-B936-2F14B1D1C3E4}"
+	ProjectSection(SolutionItems) = preProject
+		Readme.txt = Readme.txt
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

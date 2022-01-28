@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Scraper.Domain.Services.Scraper;
+using Scraper.Application.Services.Scraper;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -22,15 +22,16 @@ namespace WebCoreScraper.Controllers
             return "Welcome Scraper (backend)";
         }
 
-        [HttpGet("GetScrapeInfo/{textToFind}/{keywordsToSearch}")]
+        [HttpGet("GetScrapeInfo/{textToFind}/{keywordsToSearch}/{howMany}")]
         public async Task<string> GetScrapeInfo(
             string textToFind,
             string keywordsToSearch,
+            string howMany,
             CancellationToken cancellationToken)
         {
-            var howMany = 20;
+            int howManyInt = int.TryParse(howMany, out howManyInt) ? howManyInt : 7;
             keywordsToSearch = string.Join('+', keywordsToSearch.Split(' '));
-            var url = $"https://www.google.co.uk/search?num={howMany}&q={keywordsToSearch}";
+            var url = $"https://www.google.co.uk/search?num={howManyInt}&q={keywordsToSearch}";
 
             var res = await _scraperService.ScrapeAsync(url, textToFind, cancellationToken);
 
