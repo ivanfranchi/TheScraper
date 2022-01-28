@@ -15,3 +15,12 @@ The page says: "Welcome Scraper (backend)"
 3) WebCoreScraper\Startup.cs => app.UseCors
 The port needs to match the value of the SPA.
 (the value can be seen running the app)
+
+
+4) npm install from VueJScraper
+
+
+5) Change the solution properties to multiple startup
+	(Application then WebApi then VueJScraper)
+Otherwise start the 2 (WebApi first then VueJScraper) manually. Build dependencies first.
+
