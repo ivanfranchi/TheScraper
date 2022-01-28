@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Scraper.Domain.Services.Scraper;
-using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace WebCoreScraper.Controllers
@@ -23,12 +23,16 @@ namespace WebCoreScraper.Controllers
         }
 
         [HttpGet("GetScrapeInfo/{textToFind}/{keywordsToSearch}")]
-        public async Task<string> GetScrapeInfo(string textToFind, string keywordsToSearch)
+        public async Task<string> GetScrapeInfo(
+            string textToFind,
+            string keywordsToSearch,
+            CancellationToken cancellationToken)
         {
+            var howMany = 20;
             keywordsToSearch = string.Join('+', keywordsToSearch.Split(' '));
-            var url = "https://www.google.co.uk/search?num=100&q=" + keywordsToSearch;
+            var url = $"https://www.google.co.uk/search?num={howMany}&q={keywordsToSearch}";
 
-            var res = await _scraperService.ScrapeAsync(url, textToFind);
+            var res = await _scraperService.ScrapeAsync(url, textToFind, cancellationToken);
 
             return res;
         }

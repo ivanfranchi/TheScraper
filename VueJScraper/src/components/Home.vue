@@ -32,19 +32,29 @@
         }
 
         public async scrapeThis(): Promise<void> {
-            console.log(this.searchText);
-            console.log(this.searchKeywords);
+            if (this.searchText == "") {
+                this.searchText = "www.infotrack.co.uk";
+            }
+            if (this.searchKeywords == "") {
+                this.searchKeywords = "land registry searches";
+            }
             await this.scrapeTheWeb(this.searchText, this.searchKeywords);
         }
 
         private async scrapeTheWeb(textToFind: string, keywordsToSearch: string): Promise<void> {
-            //let textToFind = "www.infotrack.co.uk";
-            //let keywordsToSearch = "land registry searches";
-            const response = await fetch(`https://localhost:44361/ScraperHome/GetScrapeInfo/${textToFind}/${keywordsToSearch}`);
-            if (response.ok) {
-                console.log('ok!!');
-                const body = await response.text();
-                console.dir(body)
+            try {
+                const response =
+                    await fetch(`https://localhost:44361/ScraperHome/GetScrapeInfo/${textToFind}/${keywordsToSearch}`);
+
+                if (response.ok) {
+                    console.log('ok!!');
+                    const body = await response.text();
+                    console.dir(body)
+                } else {
+                    console.error(await response.text());
+                }
+            } catch (err) {
+                console.error(JSON.stringify(err));
             }
         }
     }
